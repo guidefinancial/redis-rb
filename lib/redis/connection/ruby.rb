@@ -210,7 +210,6 @@ class Redis
       ASTERISK = "*".freeze
 
       def self.connect(config)
-        binding.pry
         if config[:scheme] == "unix"
           sock = UNIXSocket.connect(config[:path], config[:timeout])
         else
@@ -221,6 +220,7 @@ class Redis
             ssl_context.key = config[:ssl_key]
             ssl_context.cert = config[:ssl_cert]
             ssl_context.verify_mode = config[:ssl_verify_mode]
+            binding.pry
             ssl_client = OpenSSL::SSL::SSLSocket.new sock, ssl_context
             ssl_client.connect
             sock = ssl_client
