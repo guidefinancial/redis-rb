@@ -215,6 +215,7 @@ class Redis
         else
           sock = TCPSocket.connect(config[:host], config[:port], config[:timeout])
           if config[:scheme] == "rediss" or config[:use_ssl]
+            binding.pry
             ssl_context = OpenSSL::SSL::SSLContext.new
             ssl_context.ca_file = config[:ssl_ca_file]
             ssl_context.key = config[:ssl_key]
