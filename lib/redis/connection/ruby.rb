@@ -213,9 +213,8 @@ class Redis
         if config[:scheme] == "unix"
           sock = UNIXSocket.connect(config[:path], config[:timeout])
         else
-          #sock = TCPSocket.connect(config[:host], config[:port], config[:timeout])
+          sock = TCPSocket.connect(config[:host], config[:port], config[:timeout])
           if config[:scheme] == "rediss" or config[:use_ssl]
-            sock = TCPSocket.open(config[:host], config[:port], config[:timeout])
             ssl_context = OpenSSL::SSL::SSLContext.new
             #ssl_context.ca_file = config[:ssl_ca_file]
             #ssl_context.key = config[:ssl_key]
@@ -227,8 +226,6 @@ class Redis
             ssl_socket.sync_close = true
             ssl_client.connect
             sock = ssl_client
-          else
-            sock = TCPSocket.connect(config[:host], config[:port], config[:timeout])
           end
         end
 
